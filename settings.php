@@ -19,3 +19,32 @@ function isAjaxRequest(): bool
         !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
         && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 }
+
+class User
+{
+    private int $id;
+    private int $email;
+    private int $name;
+
+    function __construct(int $id, string $name, string $email)
+    {
+        $this->name = $name;
+        $this->id = $id;
+        $this->email = $email;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+}

@@ -4,9 +4,9 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/settings.php";
 
 $response = [
-  "success" => true,
-  "data" => $_POST,
-  "messages" => [],
+    "success" => true,
+    "data" => $_POST,
+    "messages" => [],
 ];
 
 if ($_SERVER["HTTP_X_CSRFTOKEN"] !== $_SESSION[CSRF_TOKEN] || !isAjaxRequest()) {
@@ -29,35 +29,16 @@ if ($_POST[PASSWORD_INPUT_NAME] !== $_POST[PASSWORD_REPEAT_INPUT_NAME]) {
 }
 
 $users = [
-  [
-      "id" => "1",
-      "name" => "Коля",
-      "email" => "nikolay@mail.ru",
-  ],
-  [
-      "id" => "12",
-      "name" => "Гриша",
-      "email" => "gregory@mail.ru",
-  ],
-  [
-      "id" => "13",
-      "name" => "Петя",
-      "email" => "petrovich@gmail.com",
-  ],
-  [
-      "id" => "15",
-      "name" => "Витя",
-      "email" => "vitok@mail.ru",
-  ],
-  [
-      "id" => "115",
-      "name" => "Андрей",
-      "email" => "andy@gmail.com",
-  ],
+    new User(1, "Коля", "nikolay@mail.ru"),
+    new User(12, "Гриша", "gregory@mail.ru"),
+    new User(13, "Петя", "petrovich@mail.ru"),
+    new User(15, "Витя", "vitok@mail.ru"),
+    new User(115, "Андрей", "andy@mail.ru"),
+
 ];
 
 foreach ($users as $user) {
-    if ($user["email"] === $_POST[EMAIL_INPUT_NAME]) {
+    if ($user->getEmail() === $_POST[EMAIL_INPUT_NAME]) {
         $response["success"] = false;
         $response["messages"][] = "Почта уже занята, попробуйте войти";
         break;
@@ -70,7 +51,8 @@ if ($response["success"]) {
 
 sendResponse($response);
 
-function sendResponse($response) {
+function sendResponse($response)
+{
     $logFileName = "/logs/" . date('d.m.Y');
     $logData = array_merge(
         $response,
