@@ -4,9 +4,9 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/settings.php";
 
 $response = [
-  "success" => true,
-  "data" => $_POST,
-  "messages" => [],
+    "success" => true,
+    "data" => $_POST,
+    "messages" => [],
 ];
 
 if ($_SERVER["HTTP_X_CSRFTOKEN"] !== $_SESSION[CSRF_TOKEN] || !isAjaxRequest()) {
@@ -29,31 +29,31 @@ if ($_POST[PASSWORD_INPUT_NAME] !== $_POST[PASSWORD_REPEAT_INPUT_NAME]) {
 }
 
 $users = [
-  [
-      "id" => "1",
-      "name" => "Коля",
-      "email" => "nikolay@mail.ru",
-  ],
-  [
-      "id" => "12",
-      "name" => "Гриша",
-      "email" => "gregory@mail.ru",
-  ],
-  [
-      "id" => "13",
-      "name" => "Петя",
-      "email" => "petrovich@gmail.com",
-  ],
-  [
-      "id" => "15",
-      "name" => "Витя",
-      "email" => "vitok@mail.ru",
-  ],
-  [
-      "id" => "115",
-      "name" => "Андрей",
-      "email" => "andy@gmail.com",
-  ],
+    [
+        "id" => "1",
+        "name" => "Коля",
+        "email" => "nikolay@mail.ru",
+    ],
+    [
+        "id" => "12",
+        "name" => "Гриша",
+        "email" => "gregory@mail.ru",
+    ],
+    [
+        "id" => "13",
+        "name" => "Петя",
+        "email" => "petrovich@gmail.com",
+    ],
+    [
+        "id" => "15",
+        "name" => "Витя",
+        "email" => "vitok@mail.ru",
+    ],
+    [
+        "id" => "115",
+        "name" => "Андрей",
+        "email" => "andy@gmail.com",
+    ],
 ];
 
 foreach ($users as $user) {
@@ -70,7 +70,8 @@ if ($response["success"]) {
 
 sendResponse($response);
 
-function sendResponse($response) {
+function sendResponse($response)
+{
     $logFileName = "/logs/" . date('d.m.Y');
     $logData = array_merge(
         $response,
@@ -81,7 +82,7 @@ function sendResponse($response) {
         ]
     );
     file_put_contents(
-        __DIR__ . $logFileName,
+        $_SERVER["DOCUMENT_ROOT"] . $logFileName,
         print_r($logData, true),
         FILE_APPEND
     );
@@ -91,3 +92,4 @@ function sendResponse($response) {
     header('Content-type: application/json');
     die(json_encode($response));
 }
+
