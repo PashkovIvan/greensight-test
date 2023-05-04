@@ -18,7 +18,7 @@ if ($_SERVER["HTTP_X_CSRFTOKEN"] !== $_SESSION[CSRF_TOKEN] || !isAjaxRequest()) 
 if (!filter_var($_POST[EMAIL_INPUT_NAME], FILTER_VALIDATE_EMAIL)) {
     $response["success"] = false;
     $response["messages"][] = sprintf(
-        "E-mail адрес '%s' указан не верно.",
+        "E-mail адрес '%s' указан неверно",
         $_POST['email']
     );
 }
@@ -92,4 +92,3 @@ function sendResponse($response)
     header('Content-type: application/json');
     die(json_encode($response));
 }
-
